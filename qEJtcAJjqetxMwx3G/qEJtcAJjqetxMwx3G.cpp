@@ -36,10 +36,10 @@ char get() {
 }
 
 bool isRoman(char c) {
-    return 'A' <= c && c <= 'Z';
+    return std::string("IVXLCDM").find(c) != std::string::npos;
 }
 
-int roman2arabic(char *st, char *ed) {
+int romanToArabic(char *st, char *ed) {
     int sum = 0, prev = 0, next;
     while (ed-- != st) {
         next = m[*ed];
@@ -49,13 +49,16 @@ int roman2arabic(char *st, char *ed) {
     return sum;
 }
 
+// LL(1) parser
+
 int roman() {
     char *st = exprIter;
     while (isRoman(peek())) {
         get();
     }
-    return roman2arabic(st, exprIter);
+    return romanToArabic(st, exprIter);
 }
+
 int factor() {
     while (peek() == ' ') {
         get();
@@ -63,16 +66,17 @@ int factor() {
     if (isRoman(peek())) {
         return roman();
     } else if (peek() == '(') {
-        get();
+        get(); // '('
         double result = expression();
-        get();
+        get(); // ')'
         return result;
     } else if (peek() == '-') {
         get();
         return -factor();
     }
-    return 0;
+    return 0; // exception: '='
 }
+
 double term() {
     double result = factor();
     while (peek() == '*' || peek() == '/') {
@@ -84,6 +88,7 @@ double term() {
     }
     return result;
 }
+
 double expression() {
     double result = term();
     while (peek() == '+' || peek() == '-') {

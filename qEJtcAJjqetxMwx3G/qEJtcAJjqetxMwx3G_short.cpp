@@ -7,7 +7,6 @@
 #define z y++
 
 c y;
-S m{"IVXLCDM"};
 d C[7]{1, 5, 10, 50, 100, 500, 1e3};
 
 d F() {
@@ -18,7 +17,7 @@ d F() {
         w (y > 64) z;
         c *e = i;
         w (e-- - s)
-            n = C[m.find(*e)],
+            n = C[S("IVXLCDM").find(*e)],
             r += n<p ? -n : n,
             p = n;
         b r;

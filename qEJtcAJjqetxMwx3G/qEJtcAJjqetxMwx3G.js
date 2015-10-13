@@ -1,6 +1,6 @@
-function RomanExpression(E) {
-    return parseInt(eval(E.replace(/[A-Z=]+/g, function (R) {
-        m = {
+function RomanExpression(expression) {
+    return parseInt(eval(expression.replace(/[\w=]+/g, function (roman) {
+        map = {
             M    : 1000,
             D    : 500 ,
             C    : 100 ,
@@ -10,13 +10,13 @@ function RomanExpression(E) {
             I    : 1   ,
             '='  : 0
         };
-        A = p = 0;
-        i = R.length;
+        arabic = prev = 0;
+        i = roman.length;
         while (i--) {
-            n = m[R[i]];
-            A += n<p ? -n : n;
-            p = n;
+            next = m[roman[i]];
+            arabic += next<prev ? -next : next;
+            prev = next;
         }
-        return A;
-    })))
+        return arabic;
+    })));
 }

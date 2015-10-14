@@ -7,7 +7,6 @@
 #define z y++
 
 c y;
-d C[7]{1, 5, 10, 50, 100, 500, 1e3};
 
 d F() {
     w (y < 33) z;
@@ -17,7 +16,7 @@ d F() {
         w (y > 64) z;
         c *e = i;
         w (e-- - s)
-            n = C[S("IVXLCDM").find(*e)],
+            n = (int) pow(10, 205558 % *e % 7) % 9995,
             r += n<p ? -n : n,
             p = n;
         b r;
